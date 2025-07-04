@@ -3,7 +3,7 @@
 # https://docs.aws.amazon.com/lambda/latest/dg/python-image.html
 #
 # I also used the following as examples
-# (astral)
+# https://docs.astral.sh/uv/guides/integration/aws-lambda/#deploying-a-docker-image
 # https://recruit.cct-inc.co.jp/tecblog/aws/lambda-container-image-mecab/
 
 
