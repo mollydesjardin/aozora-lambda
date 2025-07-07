@@ -191,13 +191,16 @@ def mecab_parse(text: str) -> str:
         parsed_text = "\n".join([tagger.parse(line).strip() for line in
                              text_lines]).strip()
         return parsed_text
+    # return an empty string if MeCab or other error
     except RuntimeError as e:
         logger.error("Mecab couldn't parse the work contents. Skipping "
                      "further processing, won't save output")
         logger.error(e, stack_info=True)
+        return ""
     except Exception as e:
-        logger.error(e, stack_info=True)    # return an empty string if MeCab or other error
-    return ""
+        logger.error(e, stack_info=True)
+        return ""
+
 
 
 def convert_html_txt(input_path: str, output_path: str) -> bool:
