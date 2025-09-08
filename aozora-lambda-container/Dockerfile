@@ -28,7 +28,7 @@ COPY --from=downloader ${LAMBDA_TASK_ROOT} ${LAMBDA_TASK_ROOT}
 COPY --from=builder ${LAMBDA_TASK_ROOT} ${LAMBDA_TASK_ROOT}
 
 # Copy application code
-COPY aozora-lambda-container.py ${LAMBDA_TASK_ROOT}
+COPY aozora_lambda_container.py ${LAMBDA_TASK_ROOT}
 
 # Set the AWS Lambda handler
-CMD ["aozora-lambda-container.lambda_handler"]
+CMD ["aozora_lambda_container.lambda_handler"]
