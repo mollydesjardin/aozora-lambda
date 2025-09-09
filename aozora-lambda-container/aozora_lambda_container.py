@@ -202,7 +202,6 @@ def mecab_parse(text: str) -> str:
         return ""
 
 
-
 def convert_html_txt(input_path: str, output_path: str) -> bool:
     """Transform Aozora works to word-tokenized, plain-text versions from HTML.
 
@@ -249,8 +248,10 @@ def generate_output_key(original_key: str) -> str:
         Filename of output TXT file, ending in `_tokenized.txt`
     """
 
-    filename = original_key.rstrip(".html")
-    return f"{filename!s}_tokenized.txt"
+    if original_key:
+        return f"{original_key!s}_tokenized.txt"
+    else:
+        return ""
 
 
 def check_output(s3_client, output_bucket: str, output_key: str) -> bool:
@@ -304,8 +305,9 @@ def lambda_handler(event: dict, context: Any) -> None:
         bucket = record["s3"]["bucket"]["name"]
         output_bucket = f"{bucket!s}-converted"
 
-        # Only proceed if output does NOT already exist, for each file in event
-        if check_output(s3_client, output_bucket, output_key):
+        # Only proceed if output does NOT already exist and output_key was
+        # successfully created
+        if output_key and check_output(s3_client, output_bucket, output_key):
             # Create working paths in the Lambda tmp directory
             download_path = f"/tmp/{uuid.uuid4()}.html"
             upload_path = f"/tmp/tokenized-{uuid.uuid4()}.txt"
